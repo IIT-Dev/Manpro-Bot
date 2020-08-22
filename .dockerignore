@@ -1,0 +1,16 @@
+node_modules
+.circleci
+.git
+.env
+.vscode
+build
+.dockerignore
+.env
+.eslintrc.json
+.gitignore
+.prettierrc.json
+.docker-compose.yml
+Dockerfile
+nodemon.json
+README.md
+restart.sh

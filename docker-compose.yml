@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  manpro_bot:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: manpro/manpro_bot:latest
+    container_name: manpro_bot
+    environment:
+      MONGODB_URI: mongodb://exampleUser:examplePassword@mongodb:27017/manpro_bot?authSource=admin
+      PORT: 3000
+      LINE_CHANNEL_SECRET: secret
+      LINE_CHANNEL_ACCESS_TOKEN: token
+      DD_API_KEY: apiKey
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo:4.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: exampleUser
+      MONGO_INITDB_ROOT_PASSWORD: examplePassword
+    volumes:
+      - ./database:/data/db
+    ports:
+      - 10011:27017
