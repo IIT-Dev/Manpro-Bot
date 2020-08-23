@@ -21,7 +21,7 @@ export interface IProjectRequest {
     fee: number;
     deadline: Date;
     isDesignExist: string;
-    design: string;
+    design: string | string[];
     notes: string;
     question: string;
 }
