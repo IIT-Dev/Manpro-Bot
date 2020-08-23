@@ -3,7 +3,6 @@ export enum RecognizedInstructions {
     UNSUBSCRIBE = 'unsubscribe',
 }
 
-// type RecognizedInstruction = RecognizedInstructionEnum | string;
 export interface ICommand {
     botname: string;
     instruction: string;
