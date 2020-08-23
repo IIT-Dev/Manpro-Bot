@@ -7,7 +7,7 @@ import { LineMiddleware } from './line';
 
 export default ({ app }: { app: express.Application }) => {
     app.use((req, res, next) => {
-        if (req.headers['X-Line-Signature']) {
+        if (req.url === '/api/client/line') {
             return LineMiddleware(req, res, next);
         }
         next();
