@@ -1,0 +1,21 @@
+name: Build and Push Docker Image to Docker Hub
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build_and_push_to_registry:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository on master branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Push to Docker Hub
+        uses: docker/build-push-action
+        with:
+          username: ${{secret.DOCKER_USERNAME}}
+          password: ${{secret.DOCKER_HUB_TOKEN}}
+          repository: yoelsusanto/manpro-bot
+          tag_with_sha: true
