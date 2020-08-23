@@ -14,7 +14,7 @@
         "lint:fix": "yarn lint:js --fix"
     },
     "author": "Yoel Susanto",
-    "license": "GNU GPLv3",
+    "license": "GPL-3.0-or-later",
     "dependencies": {
         "@line/bot-sdk": "^7.0.0",
         "@types/pino": "^6.3.0",
