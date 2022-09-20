@@ -15,9 +15,20 @@ export default ({ app }: { app: express.Application }) => {
 
     logger.setupLoggingMiddleware(app);
 
-    app.get('/status', (req, res) => {
-        res.status(200).end();
+    app.get('/', (_, res) => {
+        res.status(200).json({
+            payload: null,
+            message: 'Server is running',
+        });
     });
+
+    app.get('/status', (req, res) => {
+        res.status(200).json({
+            payload: null,
+            message: 'Server is running',
+        });
+    });
+
     app.head('/status', (req, res) => {
         res.status(200).end();
     });
@@ -38,6 +49,14 @@ export default ({ app }: { app: express.Application }) => {
     // eslint-disable-next-line
     app.use((err, req, res, next) => {
         logger.error(err, { location: 'ExpressErrorHandler' }, 'Unexpected Error');
+
+        if (err instanceof Error && err.message === 'Not Found') {
+            return res.status(404).send({
+                payload: null,
+                message: 'Not found',
+            });
+        }
+
         res.status(500).send({
             payload: null,
             message: 'Unexpected error happened!',
