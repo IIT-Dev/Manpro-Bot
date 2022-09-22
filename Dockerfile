@@ -15,4 +15,4 @@ COPY --from=BUILD_IMAGE /usr/src/app/ ./
 
 EXPOSE ${PORT}
 
-CMD ["yarn", "start"]
+CMD ["yarn", "start_with_logging"]

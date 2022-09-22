@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc",
         "start": "node build/app.js",
-        "start_with_logging": "node build/app.js | pino-datadog --key ${DD_API_KEY}",
+        "start_with_logging": "node build/app.js | pino-logtail | pino-logtail",
         "dev": "nodemon",
         "lint": "yarn lint:js",
         "lint:eslint": "eslint --ignore-path .gitignore --ext .ts",
@@ -16,6 +16,7 @@
     "author": "Yoel Susanto",
     "license": "GPL-3.0-or-later",
     "dependencies": {
+        "@codevco/pino-logtail": "^1.0.7",
         "@line/bot-sdk": "^7.0.0",
         "@types/pino": "^6.3.0",
         "@types/pino-http": "^5.0.3",
