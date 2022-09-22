@@ -20,7 +20,7 @@ export function MatchedCommandPattern(message: TextEventMessage): boolean {
     if (!message.text.startsWith('/')) return false;
     let messageWithoutFrontSlash = message.text.substr(1);
 
-    let command = this.ParseCommand(messageWithoutFrontSlash);
+    let command = ParseCommand(messageWithoutFrontSlash);
     if (command.botname !== 'mb') return false;
     if (command.instruction === '') return false;
     return true;
