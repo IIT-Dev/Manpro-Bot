@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc",
         "start": "node build/app.js",
-        "start_with_logging": "node build/app.js | pino-logtail | pino-logtail",
+        "start_with_logging": "node build/app.js | pino-logtail",
         "dev": "nodemon",
         "lint": "yarn lint:js",
         "lint:eslint": "eslint --ignore-path .gitignore --ext .ts",
