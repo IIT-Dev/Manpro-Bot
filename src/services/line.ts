@@ -63,6 +63,10 @@ export default class LineHandler {
             let message = lineEvent.message as TextEventMessage;
 
             if (!MatchedCommandPattern(message)) {
+                this.lineClient.replyMessage(lineEvent.replyToken, {
+                    type: 'text',
+                    text: "Thanks to chat us, but I can't understand the instruction. I'm Sorry 😔",
+                });
                 return; //ignore message that doesn't comply with command format
             }
 
