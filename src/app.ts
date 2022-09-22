@@ -9,11 +9,7 @@ async function startServer() {
 
     await loader({ expressApp: app });
 
-    app.listen(config.port, err => {
-        if (err) {
-            Logger.error(err, 'Failed to load application');
-            process.exit(1);
-        }
+    app.listen(config.port, () => {
         Logger.info(`
         ################################################
         🛡️  Server listening on port: ${config.port} 🛡️

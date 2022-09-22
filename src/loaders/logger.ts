@@ -1,5 +1,5 @@
 import pino from 'pino';
-import pinoHttp from 'pino-http';
+import pinoHttp, {Options as pinoHttpOption} from 'pino-http';
 import { Application, Request } from 'express';
 import express from 'express';
 
@@ -26,8 +26,8 @@ export class Logger {
         this.baseLogger = baseLogger;
     }
 
-    private createMiddlewareLogger(options?: pinoHttp.Options) {
-        const defaultOptions: pinoHttp.Options = {
+    private createMiddlewareLogger(options?: pinoHttpOption) {
+        const defaultOptions: pinoHttpOption = {
             logger: this.baseLogger,
             serializers: {
                 req: (req: Request & { raw: { body: string } }) => {
@@ -86,5 +86,13 @@ export class Logger {
     }
 }
 
-const LoggerInstance = new Logger({ options: { prettyPrint: process.env.NODE_ENV !== 'production' } });
+const LoggerInstance = new Logger({ options: { 
+    transport: process.env.NODE_ENV !== 'production'? {
+        target: 'pino-pretty',
+        options: {
+          colorize: true
+        }
+    } : undefined
+} });
+
 export default LoggerInstance;

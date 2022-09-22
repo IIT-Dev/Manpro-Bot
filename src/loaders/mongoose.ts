@@ -6,11 +6,12 @@ import Logger from './logger';
 export default async (): Promise<Db> => {
     try {
         let connection: Mongoose = await mongoose.connect(config.databaseURI, {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-            useUnifiedTopology: true,
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
+            minPoolSize: 10,
+            autoIndex: true,
             serverSelectionTimeoutMS: 3500,
-            poolSize: 10,
+            
         });
 
         return connection.connection.db;
