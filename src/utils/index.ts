@@ -5,16 +5,6 @@ const BOTNAME_IDX = 0;
 const INSTRUCTION_IDX = 1;
 const ARGUMENTS_IDX = 2;
 
-export function MatchedCommandPattern(message: TextEventMessage): boolean {
-    if (!message.text.startsWith('/')) return false;
-    let messageWithoutFrontSlash = message.text.substr(1);
-
-    let command = this.ParseCommand(messageWithoutFrontSlash);
-    if (command.botname !== 'mb') return false;
-    if (command.instruction === '') return false;
-    return true;
-}
-
 export function ParseCommand(text: string): ICommand {
     let textArr = text.split(' ');
 
@@ -25,3 +15,14 @@ export function ParseCommand(text: string): ICommand {
     };
     return command;
 }
+
+export function MatchedCommandPattern(message: TextEventMessage): boolean {
+    if (!message.text.startsWith('/')) return false;
+    let messageWithoutFrontSlash = message.text.substr(1);
+
+    let command = this.ParseCommand(messageWithoutFrontSlash);
+    if (command.botname !== 'mb') return false;
+    if (command.instruction === '') return false;
+    return true;
+}
+
