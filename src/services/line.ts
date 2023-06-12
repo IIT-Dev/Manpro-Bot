@@ -1,8 +1,8 @@
-import { Service, Inject } from 'typedi';
-import { Logger } from '../loaders/logger';
-import { Client, TextEventMessage, WebhookEvent, MessageEvent, TextMessage } from '@line/bot-sdk';
+import { Client, MessageEvent, TextEventMessage, TextMessage, WebhookEvent } from '@line/bot-sdk';
+import { Inject, Service } from 'typedi';
 import { UnrecognizedInstructionError } from '../errors/DomainErrors';
-import { RecognizedInstructions as RecognizedInstructionsEnum, ICommand } from '../interfaces/ICommand';
+import { ICommand, RecognizedInstructions as RecognizedInstructionsEnum } from '../interfaces/ICommand';
+import { Logger } from '../loaders/logger';
 import { MatchedCommandPattern, ParseCommand } from '../utils';
 
 @Service()
@@ -91,6 +91,8 @@ export default class LineHandler {
                 await this.RegisterNewProjectListener(lineEvent);
             } else if (command.instruction === RecognizedInstructionsEnum.UNSUBSCRIBE) {
                 await this.UnregisterProjectListener(lineEvent);
+            } else if (command.instruction === RecognizedInstructionsEnum.LIST) {
+                await this.ListProjectListener(lineEvent);
             }
         } catch (error) {
             this.logger.error(error, { ...this.context, method: 'HandleCommand', command }, 'Error handling command');
@@ -164,6 +166,10 @@ export default class LineHandler {
             );
             throw error;
         }
+    }
+
+    private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
+        await this.ReplyMessage(lineEvent.replyToken, 'Message received!');
     }
 
     private async ReplyMessage(replyToken: string, message: string) {
