@@ -1,4 +1,4 @@
-import { Client, MessageEvent, TextEventMessage, TextMessage, WebhookEvent } from '@line/bot-sdk';
+import { Client, FlexBubble, FlexCarousel, FlexContainer, FlexMessage, MessageEvent, TextEventMessage, TextMessage, WebhookEvent } from '@line/bot-sdk';
 import { Inject, Service } from 'typedi';
 import { UnrecognizedInstructionError } from '../errors/DomainErrors';
 import { ICommand, RecognizedInstructions as RecognizedInstructionsEnum } from '../interfaces/ICommand';
@@ -18,7 +18,7 @@ export default class LineHandler {
     public async HandleEvents(lineEvents: WebhookEvent[]): Promise<void> {
         try {
             await Promise.all(
-                lineEvents.map(async event => {
+                lineEvents.map(async (event) => {
                     await this.HandleEvent(event);
                 }),
             );
@@ -169,11 +169,35 @@ export default class LineHandler {
     }
 
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
-        await this.ReplyMessage(lineEvent.replyToken, 'Message received!');
+        let content: FlexBubble = {
+            type: 'bubble',
+            body: {
+                type: 'box',
+                layout: 'vertical',
+                contents: [
+                    {
+                        type: 'text',
+                        text: 'Project X',
+                        weight: 'bold',
+                        size: 'xl',
+                    },
+                ],
+            },
+        };
+        await this.ReplyFlex(lineEvent.replyToken, 'List of project listeners', content);
     }
 
     private async ReplyMessage(replyToken: string, message: string) {
         let reply: TextMessage = { type: 'text', text: message };
+        await this.lineClient.replyMessage(replyToken, reply);
+    }
+
+    private async ReplyFlex(replyToken: string, altText: string, contents: FlexContainer) {
+        let reply: FlexMessage = {
+            type: 'flex',
+            altText,
+            contents,
+        };
         await this.lineClient.replyMessage(replyToken, reply);
     }
 }
