@@ -172,7 +172,6 @@ export default class LineHandler {
 
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
         // TODO: make this cleaner
-        const response = await fetchSheets();
         let message = '';
         axios
             .get(
