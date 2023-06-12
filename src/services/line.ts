@@ -5,6 +5,7 @@ import { ICommand, RecognizedInstructions as RecognizedInstructionsEnum } from '
 import { Logger } from '../loaders/logger';
 import { MatchedCommandPattern, ParseCommand } from '../utils';
 import { fetchSheets } from '../utils/fetchSheets';
+import axios from 'axios';
 
 @Service()
 export default class LineHandler {
@@ -170,26 +171,20 @@ export default class LineHandler {
     }
 
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
-        // let content: FlexBubble = {
-        //     type: 'bubble',
-        //     body: {
-        //         type: 'box',
-        //         layout: 'vertical',
-        //         contents: [
-        //             {
-        //                 type: 'text',
-        //                 text: 'Project X',
-        //                 weight: 'bold',
-        //                 size: 'xl',
-        //             },
-        //         ],
-        //     },
-        // };
-        // await this.ReplyFlex(lineEvent.replyToken, 'List of project listeners', content);
+        // TODO: make this cleaner
         const response = await fetchSheets();
-        for (const project of response) {
-            await this.ReplyMessage(lineEvent.replyToken, project.name + ' ' + project.type);
-        }
+        let message = '';
+        axios
+            .get(
+                'https://script.google.com/macros/s/AKfycbwcAfxr9ckEWDhVhdPgRSefTPaTyvOwOXluO1wzYnw3kCOYCpyqmb1qBS2KRgt1HxZk/exec',
+            )
+            .then((res) => {
+                message = res.data[0];
+            })
+            .catch((err) => {
+                message = 'Error fetching data from Google Sheets' + err;
+            });
+        await this.ReplyMessage(lineEvent.replyToken, message);
     }
 
     private async ReplyMessage(replyToken: string, message: string) {
