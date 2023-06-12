@@ -1,9 +1,10 @@
-import { Client, FlexBubble, FlexCarousel, FlexContainer, FlexMessage, MessageEvent, TextEventMessage, TextMessage, WebhookEvent } from '@line/bot-sdk';
+import { Client, FlexContainer, FlexMessage, MessageEvent, TextEventMessage, TextMessage, WebhookEvent } from '@line/bot-sdk';
 import { Inject, Service } from 'typedi';
 import { UnrecognizedInstructionError } from '../errors/DomainErrors';
 import { ICommand, RecognizedInstructions as RecognizedInstructionsEnum } from '../interfaces/ICommand';
 import { Logger } from '../loaders/logger';
 import { MatchedCommandPattern, ParseCommand } from '../utils';
+import { fetchSheets } from '../utils/fetchSheets';
 
 @Service()
 export default class LineHandler {
@@ -169,22 +170,24 @@ export default class LineHandler {
     }
 
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
-        let content: FlexBubble = {
-            type: 'bubble',
-            body: {
-                type: 'box',
-                layout: 'vertical',
-                contents: [
-                    {
-                        type: 'text',
-                        text: 'Project X',
-                        weight: 'bold',
-                        size: 'xl',
-                    },
-                ],
-            },
-        };
-        await this.ReplyFlex(lineEvent.replyToken, 'List of project listeners', content);
+        // let content: FlexBubble = {
+        //     type: 'bubble',
+        //     body: {
+        //         type: 'box',
+        //         layout: 'vertical',
+        //         contents: [
+        //             {
+        //                 type: 'text',
+        //                 text: 'Project X',
+        //                 weight: 'bold',
+        //                 size: 'xl',
+        //             },
+        //         ],
+        //     },
+        // };
+        // await this.ReplyFlex(lineEvent.replyToken, 'List of project listeners', content);
+        const response = await fetchSheets();
+        await this.ReplyMessage(lineEvent.replyToken, response.toString());
     }
 
     private async ReplyMessage(replyToken: string, message: string) {

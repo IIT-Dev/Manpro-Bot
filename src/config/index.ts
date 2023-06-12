@@ -18,4 +18,5 @@ export default {
         channelSecret: process.env.LINE_CHANNEL_SECRET,
         channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
     },
+    sheets: process.env.SHEETS_URL,
 };
