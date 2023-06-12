@@ -187,7 +187,9 @@ export default class LineHandler {
         // };
         // await this.ReplyFlex(lineEvent.replyToken, 'List of project listeners', content);
         const response = await fetchSheets();
-        await this.ReplyMessage(lineEvent.replyToken, response.toString());
+        for (const project of response) {
+            await this.ReplyMessage(lineEvent.replyToken, project.name + ' ' + project.type);
+        }
     }
 
     private async ReplyMessage(replyToken: string, message: string) {
