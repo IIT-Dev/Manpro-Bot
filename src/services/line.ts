@@ -4,7 +4,7 @@ import { UnrecognizedInstructionError } from '../errors/DomainErrors';
 import { ICommand, RecognizedInstructions as RecognizedInstructionsEnum } from '../interfaces/ICommand';
 import { Logger } from '../loaders/logger';
 import { MatchedCommandPattern, ParseCommand } from '../utils';
-import { fetchSheets } from '../utils/fetchSheets';
+// import { fetchSheets } from '../utils/fetchSheets';
 import axios from 'axios';
 
 @Service()
