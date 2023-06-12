@@ -178,7 +178,7 @@ export default class LineHandler {
                 'https://script.google.com/macros/s/AKfycbwcAfxr9ckEWDhVhdPgRSefTPaTyvOwOXluO1wzYnw3kCOYCpyqmb1qBS2KRgt1HxZk/exec',
             )
             .then((res) => {
-                message = res.data[0];
+                message = res.data.data[0];
             })
             .catch((err) => {
                 message = 'Error fetching data from Google Sheets' + err;
