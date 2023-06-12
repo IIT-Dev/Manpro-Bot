@@ -6,6 +6,7 @@ import { Logger } from '../loaders/logger';
 import { MatchedCommandPattern, ParseCommand } from '../utils';
 // import { fetchSheets } from '../utils/fetchSheets';
 import axios from 'axios';
+import { IProjectRequest } from '../interfaces/IProjectRequest';
 
 @Service()
 export default class LineHandler {
@@ -172,18 +173,19 @@ export default class LineHandler {
 
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
         // TODO: make this cleaner
-        let message = '';
         axios
             .get(
                 'https://script.google.com/macros/s/AKfycbwcAfxr9ckEWDhVhdPgRSefTPaTyvOwOXluO1wzYnw3kCOYCpyqmb1qBS2KRgt1HxZk/exec',
             )
             .then((res) => {
-                message = res.data.data[0];
+                let projects: IProjectRequest[] = res.data.data;
+                let projectNames: string[] = projects.map((project) => project.name);
+                let replyMessage = projectNames.join('\n');
+                this.ReplyMessage(lineEvent.replyToken, replyMessage);
             })
             .catch((err) => {
-                message = 'Error fetching data from Google Sheets' + err;
+                this.ReplyMessage(lineEvent.replyToken, err);
             });
-        await this.ReplyMessage(lineEvent.replyToken, message);
     }
 
     private async ReplyMessage(replyToken: string, message: string) {
