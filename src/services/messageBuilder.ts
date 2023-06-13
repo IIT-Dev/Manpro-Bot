@@ -1,7 +1,7 @@
 import { FlexContainer } from '@line/bot-sdk';
 import { IProjectRequest } from '../interfaces/IProjectRequest';
 
-export async function carouselBuilder(projects: IProjectRequest[]): FlexContainer {
+export function carouselBuilder(projects: IProjectRequest[]): FlexContainer {
     let contents = [];
     for (let project of projects) {
         contents.push({
