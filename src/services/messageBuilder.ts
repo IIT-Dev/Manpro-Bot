@@ -15,8 +15,7 @@ export function carouselBuilder(projects: IProjectRequest[]): FlexContainer {
                     ...Object.keys(project).map((key) => {
                         return {
                             type: 'text',
-                            text: `${key}: ${(project[key] as string).substring(0, 25)}`
-                            + (project[key].length > 25 ? '...' : ''),
+                            text: `${key}: ${project[key]}`.substring(0, 30),
                             size: 'sm',
                             wrap: true,
                         };
