@@ -23,6 +23,7 @@ export async function carouselBuilder(projects: IProjectRequest[]): FlexContaine
                 ],
             }
         });
+    }
     return {
         type: 'carousel',
         contents
