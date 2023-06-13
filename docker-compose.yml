@@ -13,6 +13,7 @@ services:
       LINE_CHANNEL_SECRET: secret
       LINE_CHANNEL_ACCESS_TOKEN: token
       DD_API_KEY: apiKey
+      LOGGING_TOKEN: token
     ports:
       - 3000:3000
     restart: unless-stopped
