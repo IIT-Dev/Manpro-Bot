@@ -7,6 +7,7 @@ import { MatchedCommandPattern, ParseCommand } from '../utils';
 import { fetchSheets } from '../utils/fetchSheets';
 import axios from 'axios';
 import { IProjectRequest } from '../interfaces/IProjectRequest';
+import { carouselBuilder } from './messageBuilder';
 // import { IProjectRequest } from '../interfaces/IProjectRequest';
 
 @Service()
@@ -175,9 +176,7 @@ export default class LineHandler {
     private async ListProjectListener(lineEvent: MessageEvent): Promise<void> {
         try {
             let projects : IProjectRequest[] = await fetchSheets();
-            let projectNames = projects.map((project) => project.name);
-
-            await this.ReplyMessage(lineEvent.replyToken, `Projects requests so far:\n${projectNames.join('\n')}`);
+            await this.ReplyFlex(lineEvent.replyToken, 'Project List', carouselBuilder(projects));
         } catch (error) {
             await this.ReplyMessage(lineEvent.replyToken, `Failed to get project list:\n${error.message}`);
 
