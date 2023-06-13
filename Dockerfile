@@ -15,4 +15,5 @@ COPY --from=BUILD_IMAGE /usr/src/app/ ./
 
 EXPOSE ${PORT}
 
-CMD ["yarn", "start_with_logging", "--token=${LOGGING_TOKEN}"]
+# TODO: Add token as env variable
+CMD ["yarn", "start_with_logging", "--token=${QNwvCaqW7F7bhpMKnqF52YDA}"]
