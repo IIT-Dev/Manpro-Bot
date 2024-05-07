@@ -1,12 +1,12 @@
-import expressLoader from './express';
-import dependencyInjectorLoader from './dependencyInjector';
-import mongooseLoader from './mongoose';
-import Logger from './logger';
 import Models from '../models';
+import dependencyInjectorLoader from './dependencyInjector';
+import expressLoader from './express';
+import Logger from './logger';
 
 export default async ({ expressApp }) => {
-    await mongooseLoader();
-    Logger.info('✌️ DB loaded and connected!');
+    // not used anymore
+    /* await mongooseLoader();
+    Logger.info('✌️ DB loaded and connected!'); */
 
     await dependencyInjectorLoader({
         models: Models,

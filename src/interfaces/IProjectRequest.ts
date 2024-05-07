@@ -1,27 +1,17 @@
-enum projectType {
-    'Website',
-    'Aplikasi Android',
-    'Aplikasi iOS',
-    'Game',
-    'Prototype',
-    'Mockup',
-}
 export interface IProjectRequest {
     name: string;
-    instance: string;
-    isStudent: string;
-    major: string;
-    classOf: string;
     email: string;
     whatsapp: string;
-    line: string;
-    type: projectType[];
-    motive: string;
+    institution: string;
+    isITB: string;
+    type: string;
+    purpose: string;
     description: string;
-    fee: number;
+    budget: number;
     deadline: Date;
-    isDesignExist: string;
-    design: string | string[];
-    notes: string;
+    hasDesign: string;
     question: string;
+    referer: string[];
+    rating: number;
+    feedback: string;
 }
