@@ -6,7 +6,7 @@ COPY . ./
 RUN ["yarn", "install"]
 RUN ["yarn", "build"]
 
-FROM node:14-alpine
+FROM node:18-alpine
 WORKDIR /usr/src/app
 
 ENV NODE_ENV production
@@ -15,4 +15,4 @@ COPY --from=BUILD_IMAGE /usr/src/app/ ./
 
 EXPOSE ${PORT}
 
-CMD ["yarn", "start_with_logging"]
+CMD ["yarn", "start"]
