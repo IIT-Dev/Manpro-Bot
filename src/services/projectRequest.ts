@@ -36,6 +36,7 @@ export default class ProjectRequest {
 
     private ConvertProjectRequestToText(projectReq: IProjectRequest): string {
         try{
+            console.log(projectReq);
             let textArr = [];
             textArr.push(`[New Project]`);
             textArr.push(`Client: ${projectReq.name}`);
@@ -65,12 +66,6 @@ export default class ProjectRequest {
             }
             if (projectReq.isDesignExist) {
                 textArr.push(`Design: ${projectReq.isDesignExist}`);
-            }
-            if (projectReq.design !== '' && projectReq.design.length > 0) {
-                let designFormats = projectReq.design as string[];
-                let formatted = designFormats.map(designFormat => `- ${designFormat}`);
-    
-                textArr.push(`Design formats:\n${formatted.join('\n')}`);
             }
             if (projectReq.notes) {
                 textArr.push(`Notes: ${projectReq.notes}`);
