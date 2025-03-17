@@ -6,12 +6,12 @@ import logger from './logger';
 import { LineMiddleware } from './line';
 
 export default ({ app }: { app: express.Application }) => {
-    app.use((req, res, next) => {
-        if (req.url === '/api/client/line') {
-            return LineMiddleware(req, res, next);
-        }
-        next();
-    });
+    // app.use((req, res, next) => {
+    //     if (req.url === '/api/client/line') {
+    //         return LineMiddleware(req, res, next);
+    //     }
+    //     next();
+    // });
 
     logger.setupLoggingMiddleware(app);
 
